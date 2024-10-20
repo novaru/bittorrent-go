@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 	// "strconv"
 	// "unicode"
 	// bencode "github.com/jackpal/bencode-go" // Available if you need it!
@@ -28,12 +29,12 @@ func decodeBencode(bencodedString string) (interface{}, error) {
 		//
 		// lengthStr := bencodedString[:firstColonIndex]
 		//
-		// length, err := strconv.Atoi(lengthStr)
-		// if err != nil {
-		// 	return "", err
-		// }
+		number, err := strconv.Atoi(bencodedString[1 : len(bencodedString)-1])
+		if err != nil {
+			return "", err
+		}
 
-		return bencodedString[1 : len(bencodedString)-1], nil
+		return number, nil
 	} else {
 		return "", fmt.Errorf("Only strings are supported at the moment")
 	}
