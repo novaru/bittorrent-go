@@ -36,7 +36,7 @@ func decodeBencode(bencodedString string) (interface{}, error) {
 
 		return number, nil
 	} else {
-		return "", fmt.Errorf("Only strings are supported at the moment")
+		return "", fmt.Errorf(bencodedString)
 	}
 }
 
