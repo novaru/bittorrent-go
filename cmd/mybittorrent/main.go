@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strconv"
-	"unicode"
+	// "strconv"
+	// "unicode"
 	// bencode "github.com/jackpal/bencode-go" // Available if you need it!
 )
 
@@ -16,24 +16,24 @@ var _ = json.Marshal
 // - 5:hello -> hello
 // - 10:hello12345 -> hello12345
 func decodeBencode(bencodedString string) (interface{}, error) {
-	if unicode.IsDigit(rune(bencodedString[0])) {
-		var firstColonIndex int
+	if bencodedString[0] == 'i' && bencodedString[len(bencodedString)-1] == 'e' {
+		// var firstColonIndex int
+		//
+		// for i := 0; i < len(bencodedString); i++ {
+		// 	if bencodedString[i] == ':' {
+		// 		firstColonIndex = i
+		// 		break
+		// 	}
+		// }
+		//
+		// lengthStr := bencodedString[:firstColonIndex]
+		//
+		// length, err := strconv.Atoi(lengthStr)
+		// if err != nil {
+		// 	return "", err
+		// }
 
-		for i := 0; i < len(bencodedString); i++ {
-			if bencodedString[i] == ':' {
-				firstColonIndex = i
-				break
-			}
-		}
-
-		lengthStr := bencodedString[:firstColonIndex]
-
-		length, err := strconv.Atoi(lengthStr)
-		if err != nil {
-			return "", err
-		}
-
-		return bencodedString[firstColonIndex+1 : firstColonIndex+1+length], nil
+		return bencodedString[1 : len(bencodedString)-1], nil
 	} else {
 		return "", fmt.Errorf("Only strings are supported at the moment")
 	}
